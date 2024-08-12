@@ -4,8 +4,38 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <style>
+      body {
+        text-align: center;
+      }
+
+      .button {
+        background-color: blue;
+        padding: 10px;
+        color: white;
+        border-width: 0px;
+      }
+    </style>
   </head>
   <body>
-    <h1>Hi</h1>
+    <h1>E-mail spam Identifier</h1>
+    <form method="post" action="/predict">
+      <textarea
+        name="email-content"
+        placeholder="Enter your e-mail body"
+        rows="35"
+        cols="65"
+      >
+      {{email_text}}</textarea
+      >
+      <br />
+      <button class="button">Check Spam</button>
+      <a href="/">Reset</a>
+    </form>
+    {% if predictions == 1%}
+    <h2 style = "color:red;">SPAM!!</h2>
+    {% elif predictions == -1 %}
+    <h2 style = "color:green;">NOT SPAM</h2>
+    {% endif %}
   </body>
 </html>
