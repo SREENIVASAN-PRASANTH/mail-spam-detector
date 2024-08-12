@@ -15,27 +15,74 @@
         color: white;
         border-width: 0px;
       }
+
+      .bg-container {
+        display: flex;
+        height: 100vh;
+        justify-content: space-around;
+        font-size: 20px;
+      }
+
+      .demo {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .spam-message-demo {
+        height: 50vh;
+        width: 100%;
+        background-color: white;
+        color: black;
+      }
+
+      .spam-message {
+        height: 190px;
+        width: 100%;
+        border: 2px solid;
+      }
+
+      textarea{
+        font-size:20px;
+      }
     </style>
   </head>
+
   <body>
-    <h1>E-mail spam Identifier</h1>
-    <form method="post" action="/predict">
-      <textarea
-        name="email-content"
-        placeholder="Enter your e-mail body"
-        rows="35"
-        cols="65"
-      >
-      {{email_text}}</textarea
-      >
-      <br />
-      <button class="button">Check Spam</button>
-      <a href="/">Reset</a>
-    </form>
-    {% if predictions == 1%}
-    <h2 style = "color:red;">SPAM!!</h2>
-    {% elif predictions == -1 %}
-    <h2 style = "color:green;">NOT SPAM</h2>
-    {% endif %}
+    <div class="bg-container">
+      <div class="demo">
+        <div class="spam-message-demo">
+          <h2>Example SPAM❌ mail</h2>
+          <div class="spam-message">
+            <p>This is E-Mail that is not spam.</p>
+          </div>
+        </div>
+
+        <div class="spam-message-demo">
+          <h2>Example of NOT A SPAM✅ mail</h2>
+          <div class="spam-message">
+            <p>This is a spam E-Mail.</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h1>E-mail spam Identifier</h1>
+        <form method="post" action="/predict">
+          <textarea
+            name="email-content"
+            placeholder="Enter your e-mail body"
+            rows="20"
+            cols="65"
+          >{{email_text if email_text else ""}}</textarea>
+          <br />
+          <button class="button">Check Spam</button>
+          <a href="/">Reset</a>
+        </form>
+        {% if predictions == 1%}
+        <h2 style="color: red">SPAM❌</h2>
+        {% elif predictions == -1 %}
+        <h2 style="color: green">NOT SPAM✅</h2>
+        {% endif %}
+      </div>
+    </div>
   </body>
 </html>

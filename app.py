@@ -8,14 +8,17 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return render_template("index.html")
+    return render_template("index.html",email_text = None)
 
 @app.route("/predict", methods = ["POST"])
 def predict():
-    email_text = request.form.get("email-content")
+    email_text = request.form.get("email-content").strip()
     prediction = make_prediction(email_text)
-    return render_template("index.html", predictions = prediction, email_text = email_text)
-
+    if email_text != "":
+        return render_template("index.html", predictions = prediction, email_text = email_text)
+    else:
+        return render_template("index.html", predictions = prediction, email_text = "")
+        
 @app.route("/api/predict", methods = ["POST"])
 def api_predict():
     data = request.get_json(force = True) #forcing it to convert to a json format
